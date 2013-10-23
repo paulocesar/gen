@@ -1,0 +1,14 @@
+MACRO ENGINEERING
+*create project structure
+*create sockets
+*jade layout for game plataform
+
+
+
+OBJECTIVE
+*create game sample
+*create premade funcitons
+*link diferent games easelly
+
+
+
