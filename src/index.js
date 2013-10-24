@@ -13,6 +13,9 @@ var fs = require("fs")
 
 var gen = module.exports = {};
 
+/*
+ * starts the GEN...
+ */
 gen.startup = function () {
   var self = this
     , fname;
@@ -28,25 +31,32 @@ gen.startup = function () {
   .then(loadRooms)
   .done();
 
-  function loadRooms (files) {
-    _.each(files,function(file) {
-      if(roomNameExp.test(file)) {
-        console.log("creating "+file+" room");
-        app.get('/'+file,showRoom);
-        io.of('/'+file).on('connection',require(roomsPath+file+'/server'));
-      }
-      else {
-        console.log("invalid room name "+file);
-      }
-    });
-
-    console.log("ready!");
-  }
-
 };
 
+/*
+ * load all rooms placed in rooms folder
+ * note that one room has to follow a specific strucuture
+ */
+function loadRooms (files) {
+  _.each(files,function(file) {
+    if(roomNameExp.test(file)) {
+      console.log("creating "+file+" room");
+      app.get('/'+file,showRoom);
+      //socket only listen a specific room
+      io.of('/'+file).on('connection',require(roomsPath+file+'/server'));
+    }
+    else {
+      console.log("invalid room name "+file);
+    }
+  });
+
+  console.log("ready!");
+}
+
+/*
+ * express method to show one room
+ */
 function showRoom (req,res) {
-  console.log(req);
   room = req.route.path.replace(/\//,'');
   res.render("layout",{room: room});
 }
