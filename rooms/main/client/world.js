@@ -7,19 +7,24 @@ World.map_height = 30;
 World.blocks = [];
 World.blocks_size = 20;
 
+
+
 World.layer = new collie.Layer({
   width: World.blocks_size*World.map_width,
   height: World.blocks_size*World.map_height  
 })
 
+
+
 World.build = function () {
-  
-  //map stuff
+  //map
   this.mapLoadData();
   this.mapBuildScene();
 
   this.start();
 }
+
+
 
 World.mapLoadData = function () {
   //temp
@@ -31,6 +36,8 @@ World.mapLoadData = function () {
   i = width*height-(4*width);
   while(i--) self.map.push(1); 
 }
+
+
 
 World.mapBuildScene = function () {
   var i = this.map.length
@@ -59,6 +66,8 @@ World.mapBuildScene = function () {
     .addTo(layer));
   }
 }
+
+
 
 World.start = function () {
   collie.Renderer.addLayer(this.layer);
